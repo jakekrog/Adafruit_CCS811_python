@@ -13,7 +13,13 @@ ccs.tempOffset = temp - 25.0
 while(1):
 	if ccs.available():
 	    temp = ccs.calculateTemperature()
-	    if not ccs.readData():
+        
+        try:
+            result = ccs.readData()
+        except IOError:
+            print "IOError"
+        
+	    if not result:
 	      print "CO2: ", ccs.geteCO2(), "ppm, TVOC: ", ccs.getTVOC(), " temp: ", temp
 
 	    else:
